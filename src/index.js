@@ -5,6 +5,7 @@ $(document).ready(() => {
   var button = document.getElementById("button");
   button.addEventListener("click", function(){
     addWord();
+    showTopWord();
   })
 })
 
