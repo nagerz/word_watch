@@ -23,11 +23,10 @@ function showTopWord(){
 
 function addSubmission(){
   var input = document.getElementById("textarea").value;
-  var words = input.split(" ");
+  var words = input.replace(/[.,\/#!?$%\^&\*;:{}=\-_`~()]/g,"").split(" ")
   document.getElementById("textarea").value = "";
   words.forEach(word => {
     addWord(word);
-
   })
 };
 
