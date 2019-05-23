@@ -21,12 +21,18 @@ function showTopWord(){
 };
 
 function addWord(){
-  var newWord = document.getElementById("textarea").innerHTML;
+  var newWord = document.getElementById("textarea").value;
   fetch("https://wordwatch-api.herokuapp.com/api/v1/words",{
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       word:{ value: `${newWord}`}
     })
+  })
+  .then(response => {
+    return response.json()
+  })
+  .then(result => {
+    return document.getElementById("textarea").value = `${result["message"]}`;
   })
 };
