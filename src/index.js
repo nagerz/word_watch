@@ -4,7 +4,7 @@ $(document).ready(() => {
   showTopWord();
   var button = document.getElementById("button");
   button.addEventListener("click", function(){
-    addWord();
+    addSubmission();
     showTopWord();
   })
 })
@@ -21,8 +21,17 @@ function showTopWord(){
   })
 };
 
-function addWord(){
-  var newWord = document.getElementById("textarea").value;
+function addSubmission(){
+  var input = document.getElementById("textarea").value;
+  var words = input.split(" ");
+  document.getElementById("textarea").value = "";
+  words.forEach(word => {
+    addWord(word);
+
+  })
+};
+
+function addWord(newWord){
   fetch("https://wordwatch-api.herokuapp.com/api/v1/words",{
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -33,7 +42,8 @@ function addWord(){
   .then(response => {
     return response.json()
   })
-  .then(result => {
-    return document.getElementById("textarea").value = `${result["message"]}`;
+  .then(response => {
+    var text = document.getElementById("textarea").value
+    return document.getElementById("textarea").value = text + `${response["message"]}`+ '\n';
   })
 };
